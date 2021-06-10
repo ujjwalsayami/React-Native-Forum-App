@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
-import {
-  Text,
-  View,
-  Keyboard,
-  Pressable,
-  ScrollView,
-  ActivityIndicator,
-} from 'react-native';
+import { Text, View, Keyboard, Pressable, ScrollView } from 'react-native';
 
 import { styles } from './styles';
 import Firebase from './../../../config/firebase';
-import { SafeAreaView, TextInputContainer } from 'components';
+import { SafeAreaView, CommonButton, TextInputContainer } from 'components';
 
 const LoginScreen = ({ navigation }) => {
   const initialData = {
@@ -54,7 +47,7 @@ const LoginScreen = ({ navigation }) => {
           .catch((error) => {
             setisLoading(false);
             if (error.code === 'auth/user-not-found') {
-              alert('There is no user corresponding to above email!');
+              alert('There is no user with above email!');
             }
             if (error.code === 'auth/invalid-email') {
               alert('Email address is invalid');
@@ -95,13 +88,11 @@ const LoginScreen = ({ navigation }) => {
                 onChangeText={(newText) => _onChangeText(newText, 'PASSWORD')}
               />
             </View>
-            <Pressable onPress={onPress('LOGIN')} style={styles.signInView}>
-              {isLoading ? (
-                <ActivityIndicator size="small" color="#fff" />
-              ) : (
-                <Text style={styles.loginText}>LOGIN</Text>
-              )}
-            </Pressable>
+            <CommonButton
+              label={'LOGIN'}
+              isLoading={isLoading}
+              onPress={onPress('LOGIN')}
+            />
             <Pressable onPress={onPress('SIGNUP')}>
               <Text style={styles.signupText}>
                 Don't have an account yet?

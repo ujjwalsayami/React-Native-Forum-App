@@ -15,7 +15,7 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 import { styles } from './styles';
 import Firebase, { firestoreDb } from '../../config/firebase';
-import { SafeAreaView, DiscussionCard } from 'components';
+import { SafeAreaView, DiscussionCard, CommonButton } from 'components';
 
 const emptyComponent = () => {
   return (
@@ -179,6 +179,12 @@ const Home = ({ route, navigation }) => {
                   onChangeText={(newText) => setroomName(newText)}
                 />
               </View>
+              <CommonButton
+                label={'Done'}
+                isLoading={isLoading}
+                style={styles.createBtn}
+                onPress={_onChangeRoomName}
+              />
             </View>
           </KeyboardAvoidingView>
         </View>

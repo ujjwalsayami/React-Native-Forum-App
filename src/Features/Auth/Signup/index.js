@@ -9,7 +9,7 @@ import {
 
 import { styles } from './styles';
 import Firebase from './../../../config/firebase';
-import { TextInputContainer } from 'components';
+import { TextInputContainer, CommonButton } from 'components';
 
 const SignupScreen = ({ navigation }) => {
   const initialData = {
@@ -91,13 +91,12 @@ const SignupScreen = ({ navigation }) => {
               onChangeText={(newText) => _onChangeText(newText, 'PASSWORD')}
             />
           </View>
-          <Pressable onPress={onPress('SIGNUP')} style={styles.signInView}>
-            {isLoading ? (
-              <ActivityIndicator size="small" color="#fff" />
-            ) : (
-              <Text style={styles.loginText}>SIGN UP</Text>
-            )}
-          </Pressable>
+          <CommonButton
+            isLoading={isLoading}
+            label={'SIGNUP'}
+            onPress={onPress('SIGNUP')}
+          />
+
           <Pressable onPress={onPress('LOGIN')}>
             <Text style={styles.signupText}>
               Already have an account?

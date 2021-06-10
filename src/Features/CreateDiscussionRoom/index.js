@@ -1,15 +1,8 @@
 import React, { useState } from 'react';
-import {
-  Text,
-  View,
-  Pressable,
-  ScrollView,
-  Keyboard,
-  ActivityIndicator,
-} from 'react-native';
+import { Text, View, ScrollView, Keyboard } from 'react-native';
 
 import { styles } from './styles';
-import { TextInputContainer } from 'components';
+import { TextInputContainer, CommonButton } from 'components';
 import { firestoreDb } from './../../config/firebase';
 
 const CreateDiscussionRoom = ({ route }) => {
@@ -38,6 +31,10 @@ const CreateDiscussionRoom = ({ route }) => {
           description: data.description,
         })
         .then(() => {
+          setdata({
+            description: '',
+            roomName: '',
+          });
           setisLoading(false);
           alert(`${data.roomName} Discussion room created Successfully!`);
           navigation.goBack();
@@ -90,13 +87,12 @@ const CreateDiscussionRoom = ({ route }) => {
             onChangeText={(newText) => _onChangeText(newText, 'DESCRIPTION')}
           />
         </View>
-        <Pressable onPress={onPress('CREATE')} style={styles.signInView}>
-          {isLoading ? (
-            <ActivityIndicator size="small" color="#fff" />
-          ) : (
-            <Text style={styles.loginText}>CREATE</Text>
-          )}
-        </Pressable>
+
+        <CommonButton
+          label={'CREATE'}
+          isLoading={isLoading}
+          onPress={onPress('CREATE')}
+        />
       </ScrollView>
     </View>
   );

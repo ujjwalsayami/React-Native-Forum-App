@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Text, FlatList, Pressable, View, Keyboard } from 'react-native';
+import {
+  Text,
+  FlatList,
+  Pressable,
+  KeyboardAvoidingView,
+  Platform,
+  View,
+  Keyboard,
+} from 'react-native';
 
 import { styles } from './styles';
-import { TextInputContainer } from 'components';
+import { TextInputContainer, CommonButton } from 'components';
 import { firestoreDb } from './../../config/firebase';
 
 const HeaderComponent = ({ data }) => (
@@ -24,16 +32,18 @@ const FooterComponent = ({ showInput, onPress, _onChangeText, _submit }) => (
           <Text style={[styles.label, styles.boldText]}>Reply</Text>
         </Pressable>
       ) : (
-        <TextInputContainer
-          // multiline={true}
-          returnKeyType={'done'}
-          style={styles.textInput}
-          keyboardType={'email-address'}
-          placeholder={'Reply here...'}
-          onSubmitEditing={_submit}
-          keyboardShouldPersistTaps={'handled'}
-          onChangeText={(newText) => _onChangeText(newText)}
-        />
+        <>
+          <TextInputContainer
+            returnKeyType={'done'}
+            style={styles.textInput}
+            keyboardType={'email-address'}
+            placeholder={'Reply here...'}
+            onSubmitEditing={_submit}
+            keyboardShouldPersistTaps={'handled'}
+            onChangeText={(newText) => _onChangeText(newText)}
+          />
+          <CommonButton label={'Comment'} isLoading={false} onPress={_submit} />
+        </>
       )}
     </View>
   </>
@@ -116,26 +126,33 @@ const DiscussionRoom = ({ route }) => {
   }, []);
 
   return (
-    <View style={styles.flex}>
-      <View style={styles.container}>
-        <FlatList
-          ListHeaderComponent={<HeaderComponent data={data} />}
-          data={commentData}
-          initialNumToRender={5}
-          renderItem={renderItem()}
-          keyExtractor={keyExtractor}
-          showsVerticalScrollIndicator={false}
-          ListFooterComponent={
-            <FooterComponent
-              showInput={showInput}
-              onPress={onPress}
-              _onChangeText={_onChangeText}
-              _submit={_submit}
-            />
-          }
-        />
-      </View>
-    </View>
+    <KeyboardAvoidingView
+      enabled
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+      keyboardVerticalOffset={Platform.select({
+        ios: () => 64,
+        android: () => 24,
+      })()}
+      style={styles.flex}
+    >
+      <FlatList
+        ListHeaderComponent={<HeaderComponent data={data} />}
+        data={commentData}
+        initialNumToRender={5}
+        renderItem={renderItem()}
+        keyExtractor={keyExtractor}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.container}
+        ListFooterComponent={
+          <FooterComponent
+            showInput={showInput}
+            onPress={onPress}
+            _onChangeText={_onChangeText}
+            _submit={_submit}
+          />
+        }
+      />
+    </KeyboardAvoidingView>
   );
 };
 

@@ -114,4 +114,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     justifyContent: 'center',
   },
+  createBtn: {
+    marginVertical: 12,
+  },
 });
