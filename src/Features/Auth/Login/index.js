@@ -81,10 +81,10 @@ const LoginScreen = ({ navigation }) => {
               <TextInputContainer
                 blurOnSubmit={false}
                 returnKeyType={'next'}
+                secureTextEntry={true}
                 style={styles.textInput}
                 defaultValue={data.password}
                 keyboardType={'email-address'}
-                secureTextEntry={true}
                 placeholder={'Please Enter Password'}
                 onChangeText={(newText) => _onChangeText(newText, 'PASSWORD')}
               />

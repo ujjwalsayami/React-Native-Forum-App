@@ -174,7 +174,7 @@ const Home = ({ route, navigation }) => {
                   returnKeyType={'done'}
                   style={styles.textInput}
                   keyboardType={'email-address'}
-                  placeholder={'Please Enter Name'}
+                  placeholder={'Please Enter Room Name'}
                   onSubmitEditing={_onChangeRoomName}
                   onChangeText={(newText) => setroomName(newText)}
                 />

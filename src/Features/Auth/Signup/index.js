@@ -84,10 +84,11 @@ const SignupScreen = ({ navigation }) => {
             <TextInputContainer
               blurOnSubmit={false}
               returnKeyType={'next'}
+              secureTextEntry={true}
               style={styles.textInput}
               defaultValue={data.password}
               keyboardType={'email-address'}
-              placeholder={'Please Enter Email'}
+              placeholder={'Please Enter Password'}
               onChangeText={(newText) => _onChangeText(newText, 'PASSWORD')}
             />
           </View>
