@@ -84,7 +84,8 @@ const LoginScreen = ({ navigation }) => {
                 style={styles.textInput}
                 defaultValue={data.password}
                 keyboardType={'email-address'}
-                placeholder={'Please Enter Email'}
+                secureTextEntry={true}
+                placeholder={'Please Enter Password'}
                 onChangeText={(newText) => _onChangeText(newText, 'PASSWORD')}
               />
             </View>
